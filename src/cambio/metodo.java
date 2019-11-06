@@ -12,8 +12,8 @@ import java.math.BigDecimal;
  * @author usuario
  */
 public class metodo {
-    public String cantidadConLetra(String s) {
-		StringBuilder result = new StringBuilder();
+    public String cantidadConLetra(String s) {  
+                StringBuilder result = new StringBuilder();
 		BigDecimal totalBigDecimal = new BigDecimal(s).setScale(2, BigDecimal.ROUND_DOWN);
 		long parteEntera = totalBigDecimal.toBigInteger().longValue();
 		int triUnidades = (int) ((parteEntera % 1000));
@@ -25,31 +25,27 @@ public class metodo {
 			result.append("Cero ");
 			return result.toString();
 		}
-
 		if (triMilMillones > 0)
 			result.append(triTexto(triMilMillones).toString() + "Mil ");
 		if (triMillones > 0)
 			result.append(triTexto(triMillones).toString());
-
 		if (triMilMillones == 0 && triMillones == 1)
 			result.append("Millón ");
 		else if (triMilMillones > 0 || triMillones > 0)
 			result.append("Millones ");
-
-		if (triMiles <= 1)
-                    result.append("mil ");
-                else result.append(triTexto(triMiles).toString() + "Mil ");
+		if (triMiles == 1)
+                    result.append(triTexto(triMiles-1).toString() + "Mil ");
+                else if  (triMiles > 0)   
+                    result.append(triTexto(triMiles).toString() + "Mil ");
 		if (triUnidades > 0)
 			result.append(triTexto(triUnidades).toString());
-
-		return result.toString();
-	}
+         return result.toString();
+    }
     public static StringBuilder triTexto(int n) {
 		StringBuilder result = new StringBuilder();
 		int centenas = n / 100;
 		int decenas = (n % 100) / 10;
 		int unidades = (n % 10);
-
 		switch (centenas) {
 		case 0:
 			break;
@@ -85,7 +81,6 @@ public class metodo {
 			result.append("Novecientos ");
 			break;
 		}
-
 		switch (decenas) {
 		case 0:
 			break;
@@ -146,6 +141,7 @@ public class metodo {
 
 		switch (unidades) {
 		case 0:
+                        result.append("");
 			break;
 		case 1:
 			result.append("Uno ");
